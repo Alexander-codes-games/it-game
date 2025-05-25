@@ -47,5 +47,40 @@ function solveTicket(button, correctFix) {
   setTimeout(() => ticket.remove(), 3000);
 }
 
-// Add new tickets every 5 seconds
 setInterval(addTicket, 5000);
+
+// 👇 Joystick logic for future use
+const joystick = document.getElementById('joystick-inner');
+let dragging = false;
+let startX, startY;
+let moveX = 0;
+let moveY = 0;
+const maxDistance = 40;
+
+joystick.addEventListener('pointerdown', (e) => {
+  dragging = true;
+  startX = e.clientX;
+  startY = e.clientY;
+  joystick.style.transition = 'none';
+  e.target.setPointerCapture(e.pointerId);
+});
+
+joystick.addEventListener('pointermove', (e) => {
+  if (!dragging) return;
+  const dx = e.clientX - startX;
+  const dy = e.clientY - startY;
+  const distance = Math.sqrt(dx * dx + dy * dy);
+  const angle = Math.atan2(dy, dx);
+  const limitedDistance = Math.min(maxDistance, distance);
+  moveX = Math.cos(angle) * limitedDistance;
+  moveY = Math.sin(angle) * limitedDistance;
+  joystick.style.transform = `translate(${moveX}px, ${moveY}px)`;
+});
+
+joystick.addEventListener('pointerup', (e) => {
+  dragging = false;
+  moveX = 0;
+  moveY = 0;
+  joystick.style.transition = 'transform 0.3s ease';
+  joystick.style.transform = `translate(0, 0)`;
+});
