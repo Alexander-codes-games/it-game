@@ -1,0 +1,29 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #1e1e1e;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+#tickets {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ticket {
+  background: #2e2e2e;
+  padding: 15px;
+  border: 2px solid #444;
+  border-radius: 10px;
+  width: 300px;
+  margin: auto;
+}
+
+button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
